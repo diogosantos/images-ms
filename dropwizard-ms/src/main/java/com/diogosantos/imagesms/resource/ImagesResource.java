@@ -1,19 +1,14 @@
 package com.diogosantos.imagesms.resource;
 
 import com.diogosantos.core.Image;
-import com.diogosantos.core.ImageTool;
+import com.diogosantos.core.ImageService;
 import lombok.AllArgsConstructor;
 
 import javax.imageio.ImageIO;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Created by diogo on 10/06/15.
@@ -22,7 +17,7 @@ import java.net.URL;
 @AllArgsConstructor
 public class ImagesResource {
 
-    private ImageTool imageTool;
+    private ImageService imageService;
 
     @GET
     @Path("/{size}/{seo}/{filename}")
@@ -31,7 +26,7 @@ public class ImagesResource {
                                     @PathParam("seo") String seo,
                                     @PathParam("filename") String filename) throws IOException {
 
-        final Image image = imageTool.getImage(size, filename);
+        final Image image = imageService.getImage(size, filename);
 
         return new StreamingOutput() {
             public void write(OutputStream output) throws IOException,

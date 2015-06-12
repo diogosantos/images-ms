@@ -2,7 +2,7 @@ package com.diogosantos.imagesms;
 
 import com.diogosantos.core.ImageHandler;
 import com.diogosantos.core.ImageRepository;
-import com.diogosantos.core.ImageTool;
+import com.diogosantos.core.ImageService;
 import com.diogosantos.imagesms.resource.ImagesResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
@@ -18,8 +18,8 @@ public class ImagesApplication extends Application<ImagesConfiguration> {
 
     @Override
     public void run(ImagesConfiguration imagesConfiguration, Environment environment) throws Exception {
-        ImageTool imageTool = new ImageTool(new ImageRepository(), new ImageHandler());
-        ImagesResource imagesResource = new ImagesResource(imageTool);
+        ImageService imageService = new ImageService(new ImageRepository(), new ImageHandler());
+        ImagesResource imagesResource = new ImagesResource(imageService);
 
         environment.jersey().register(imagesResource);
     }

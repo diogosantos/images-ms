@@ -12,7 +12,7 @@ import java.net.URL;
  * Created by diogo on 11/06/15.
  */
 @AllArgsConstructor
-public class ImageTool {
+public class ImageService {
 
     private ImageRepository repository;
 
