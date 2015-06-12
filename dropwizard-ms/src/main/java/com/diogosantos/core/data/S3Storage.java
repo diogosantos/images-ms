@@ -6,15 +6,14 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.S3Object;
 import com.diogosantos.core.Image;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by diogo on 12/06/15.
- */
+@Slf4j
 public class S3Storage {
 
     private String bucketName = "images-ms-bucket";
@@ -22,6 +21,7 @@ public class S3Storage {
     private AmazonS3Client s3Client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain());
 
     public Image getImage(String key) throws IOException {
+        log.debug(String.format("requesting s3 for key %s", key));
         try {
             S3Object objectPortion = s3Client.getObject(bucketName, key);
             InputStream objectData = objectPortion.getObjectContent();

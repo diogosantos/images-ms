@@ -17,9 +17,6 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by diogo on 11/06/15.
- */
 public class ImageRepository {
 
     private S3Storage storage = new S3Storage();

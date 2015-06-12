@@ -5,6 +5,6 @@ package com.diogosantos.core;
  */
 public class ImageHandler {
     public Image resize(NamedSize size, Image original) {
-        return null;
+        return original;
     }
 }

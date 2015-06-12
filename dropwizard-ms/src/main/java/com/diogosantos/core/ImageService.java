@@ -8,9 +8,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by diogo on 11/06/15.
- */
 @AllArgsConstructor
 public class ImageService {
 
