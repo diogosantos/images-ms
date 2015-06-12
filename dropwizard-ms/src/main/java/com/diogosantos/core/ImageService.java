@@ -18,17 +18,27 @@ public class ImageService {
 
     private ImageHandler handler;
 
-    public Image getImage(String size, String filename) throws IOException {
+    public Image getImage(ImageRequest imageRequest) throws IOException {
 
-        if(repository.contains(size, filename)) {
-            return repository.getImage(size, filename);
+        if (repository.contains(imageRequest)) {
+            return repository.getImage(imageRequest);
         }
 
-        Image original = repository.getOriginal(filename);
-        Image requested = handler.resize(size, original);
+        return getResizedImage(imageRequest);
+    }
+
+    private Image getResizedImage(ImageRequest imageRequest) throws IOException {
+
+        ImageRequest originalImageRequest = ImageRequest.builder()
+                .filename(imageRequest.getFilename())
+                .size(NamedSize.ORIGINAL)
+                .build();
+        Image original = repository.getImage(originalImageRequest);
+
+        Image requested = handler.resize(imageRequest.getSize(), original);
+
         repository.add(requested);
 
         return requested;
     }
-
 }

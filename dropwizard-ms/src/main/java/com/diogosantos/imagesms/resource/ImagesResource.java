@@ -1,7 +1,9 @@
 package com.diogosantos.imagesms.resource;
 
 import com.diogosantos.core.Image;
+import com.diogosantos.core.ImageRequest;
 import com.diogosantos.core.ImageService;
+import com.diogosantos.core.NamedSize;
 import lombok.AllArgsConstructor;
 
 import javax.imageio.ImageIO;
@@ -10,9 +12,6 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.IOException;
 import java.io.OutputStream;
 
-/**
- * Created by diogo on 10/06/15.
- */
 @Path("/image")
 @AllArgsConstructor
 public class ImagesResource {
@@ -20,21 +19,25 @@ public class ImagesResource {
     private ImageService imageService;
 
     @GET
-    @Path("/{size}/{seo}/{filename}")
+    @Path("/show/{size}/{seo}")
     @Produces("image/png")
     public StreamingOutput getImage(@PathParam("size") String size,
                                     @PathParam("seo") String seo,
-                                    @PathParam("filename") String filename) throws IOException {
+                                    @QueryParam("reference") String filename) throws IOException {
 
-        final Image image = imageService.getImage(size, filename);
+        final NamedSize namedSize = NamedSize.getValue(size);
+        final ImageRequest imageRequest = ImageRequest.builder().size(namedSize).filename(filename).build();
+        final Image image = imageService.getImage(imageRequest);
 
+        return getStreamingOutput(image);
+    }
+
+    private StreamingOutput getStreamingOutput(final Image image) {
         return new StreamingOutput() {
-            public void write(OutputStream output) throws IOException,
-                    WebApplicationException {
-                ImageIO.write(image.getBuffered(), "png", output);
+            public void write(OutputStream output) throws IOException, WebApplicationException {
+                ImageIO.write(image.getBuffered(), image.getFileType(), output);
             }
         };
-
     }
 
 }

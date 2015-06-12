@@ -20,6 +20,9 @@ public class Image {
 
     private BufferedImage buffered;
 
+    public String getFileType() {
+        return "png";
+    }
 }
 
 
