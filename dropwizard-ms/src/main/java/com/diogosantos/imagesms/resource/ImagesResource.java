@@ -1,9 +1,9 @@
 package com.diogosantos.imagesms.resource;
 
-import com.diogosantos.core.Image;
-import com.diogosantos.core.ImageMetadata;
-import com.diogosantos.core.ImageService;
-import com.diogosantos.core.NamedSize;
+import core.model.Image;
+import core.model.ImageMetadata;
+import core.ImageService;
+import core.model.NamedSize;
 import lombok.AllArgsConstructor;
 
 import javax.imageio.ImageIO;

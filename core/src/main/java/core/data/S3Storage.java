@@ -1,24 +1,35 @@
-package com.diogosantos.core.data;
+package core.data;
 
-import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3Object;
-import com.diogosantos.core.Image;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Slf4j
 public class S3Storage {
 
-    private String bucketName = "images-ms-bucket";
+    private String bucketName;
 
-    private AmazonS3Client s3Client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain());
+    private AmazonS3Client s3Client;
+
+    public S3Storage(String bucketName, String accessKey, String secretKey) {
+        this.bucketName = bucketName;
+        this.s3Client = new AmazonS3Client(new BasicAWSCredentials(accessKey, secretKey));
+    }
+
+    public S3Storage(String bucketName, DefaultAWSCredentialsProviderChain defaultAWSCredentialsProviderChain) {
+        this.bucketName = bucketName;
+        this.s3Client = new AmazonS3Client(defaultAWSCredentialsProviderChain);
+    }
 
     public BufferedImage getImage(String key) throws IOException {
 
@@ -54,7 +65,7 @@ public class S3Storage {
 
     public void add(BufferedImage file, String key) throws IOException {
         ByteArrayOutputStream os = new ByteArrayOutputStream();
-        ImageIO.write(file, "gif", os);
+        ImageIO.write(file, "png", os);
         s3Client.putObject(bucketName, key, new ByteArrayInputStream(os.toByteArray()), null);
     }
 }

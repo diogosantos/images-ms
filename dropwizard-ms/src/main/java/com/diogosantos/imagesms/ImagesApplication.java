@@ -1,15 +1,14 @@
 package com.diogosantos.imagesms;
 
-import com.diogosantos.core.ImageHandler;
-import com.diogosantos.core.ImageRepository;
-import com.diogosantos.core.ImageService;
+import core.ImageHandler;
+import core.data.FileDirectoryStrategy;
+import core.data.S3Storage;
+import core.model.ImageRepository;
+import core.ImageService;
 import com.diogosantos.imagesms.resource.ImagesResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
-/**
- * Created by diogo on 10/06/15.
- */
 public class ImagesApplication extends Application<ImagesConfiguration> {
 
     public static void main(String args[]) throws Exception {
@@ -17,9 +16,11 @@ public class ImagesApplication extends Application<ImagesConfiguration> {
     }
 
     @Override
-    public void run(ImagesConfiguration imagesConfiguration, Environment environment) throws Exception {
-        ImageService imageService = new ImageService(new ImageRepository(), new ImageHandler());
-        ImagesResource imagesResource = new ImagesResource(imageService);
+    public void run(ImagesConfiguration configuration, Environment environment) throws Exception {
+        final S3Storage storage = configuration.getS3StorageInstance();
+        final ImageRepository imageRepository = new ImageRepository(storage, new FileDirectoryStrategy());
+        final ImageService imageService = new ImageService(imageRepository, new ImageHandler());
+        final ImagesResource imagesResource = new ImagesResource(imageService);
 
         environment.jersey().register(imagesResource);
     }

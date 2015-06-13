@@ -1,4 +1,6 @@
-package com.diogosantos.core;
+package core.data;
+
+import core.model.NamedSize;
 
 public class FileDirectoryStrategy {
 

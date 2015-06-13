@@ -13,7 +13,6 @@
     <modules>
         <module>core</module>
         <module>dropwizard-ms</module>
-        <module>spring-ms</module>
     </modules>
 
     <properties>

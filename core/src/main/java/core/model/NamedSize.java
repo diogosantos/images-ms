@@ -1,4 +1,4 @@
-package com.diogosantos.core;
+package core.model;
 
 import lombok.Getter;
 

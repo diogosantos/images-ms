@@ -10,3 +10,10 @@ logging:
     com.diogosantos: DEBUG
   appenders:
     - type: console
+
+bucketName: images-ms-bucket
+# chain: authenticate using the default provider chain: environment variable > .credentials file > etc.
+# basic: we have to provide the access and secret keys in this file.
+s3Authentication: chain
+# accessKey:
+# secretKey:

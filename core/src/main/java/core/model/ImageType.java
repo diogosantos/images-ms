@@ -1,4 +1,4 @@
-package com.diogosantos.core;
+package core.model;
 
 /**
  * Created by diogo on 12/06/15.

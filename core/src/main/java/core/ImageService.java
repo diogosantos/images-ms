@@ -1,5 +1,9 @@
-package com.diogosantos.core;
+package core;
 
+import core.model.Image;
+import core.model.ImageMetadata;
+import core.model.ImageRepository;
+import core.model.NamedSize;
 import lombok.AllArgsConstructor;
 
 import java.io.IOException;
@@ -14,7 +18,7 @@ public class ImageService {
     public Image getImage(ImageMetadata imageMetadata) throws IOException {
 
         if (repository.contains(imageMetadata)) {
-            return repository.getImage(imageMetadata);
+            return repository.get(imageMetadata);
         }
 
         return getResizedImage(imageMetadata);
@@ -26,7 +30,7 @@ public class ImageService {
                 .filename(imageMetadata.getFilename())
                 .size(NamedSize.ORIGINAL)
                 .build();
-        Image original = repository.getImage(originalImageMetadata);
+        Image original = repository.get(originalImageMetadata);
 
         Image requested = handler.resize(imageMetadata, original);
 

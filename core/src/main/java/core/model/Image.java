@@ -1,4 +1,4 @@
-package com.diogosantos.core;
+package core.model;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -14,8 +14,7 @@ public class Image {
     private ImageMetadata imageMetadata;
 
     public String getFileType() {
-
-        return "png";
+        return imageMetadata.getFileType();
     }
 
     public String getFilename() {

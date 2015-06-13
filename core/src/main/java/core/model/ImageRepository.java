@@ -1,17 +1,20 @@
-package com.diogosantos.core;
+package core.model;
 
-import com.diogosantos.core.data.S3Storage;
+import core.data.FileDirectoryStrategy;
+import core.data.S3Storage;
+import core.model.Image;
+import core.model.ImageMetadata;
+import lombok.AllArgsConstructor;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
+@AllArgsConstructor
 public class ImageRepository {
 
-    private S3Storage storage = new S3Storage();
+    private S3Storage storage;
 
-    private FileDirectoryStrategy directoryStrategy = new FileDirectoryStrategy();
+    private FileDirectoryStrategy directoryStrategy;
 
     public void add(Image image) throws IOException {
         String imagePath = directoryStrategy.getPath(image.getSize(), image.getFilename());
@@ -23,7 +26,7 @@ public class ImageRepository {
         return storage.contains(imagePath);
     }
 
-    public Image getImage(ImageMetadata imageMetadata) throws IOException {
+    public Image get(ImageMetadata imageMetadata) throws IOException {
         String imagePath = directoryStrategy.getPath(imageMetadata.getSize(), imageMetadata.getFilename());
         BufferedImage bufferedImage = storage.getImage(imagePath);
 
