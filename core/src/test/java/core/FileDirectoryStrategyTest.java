@@ -5,11 +5,6 @@ import core.model.NamedSize;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by diogo on 12/06/15.
- */
 public class FileDirectoryStrategyTest {
 
     FileDirectoryStrategy fileDirectoryStrategy = new FileDirectoryStrategy();

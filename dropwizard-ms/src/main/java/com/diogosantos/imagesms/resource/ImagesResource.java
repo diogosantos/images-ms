@@ -1,8 +1,8 @@
 package com.diogosantos.imagesms.resource;
 
+import core.ImageService;
 import core.model.Image;
 import core.model.ImageMetadata;
-import core.ImageService;
 import core.model.NamedSize;
 import lombok.AllArgsConstructor;
 

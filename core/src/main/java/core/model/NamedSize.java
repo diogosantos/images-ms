@@ -25,8 +25,8 @@ public enum NamedSize {
     }
 
     public static NamedSize getValue(String value) {
-        for(NamedSize size : values()) {
-            if(size.name().equalsIgnoreCase(value)) {
+        for (NamedSize size : values()) {
+            if (size.name().equalsIgnoreCase(value)) {
                 return size;
             }
         }

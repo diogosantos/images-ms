@@ -2,8 +2,6 @@ package core.model;
 
 import core.data.FileDirectoryStrategy;
 import core.data.S3Storage;
-import core.model.Image;
-import core.model.ImageMetadata;
 import lombok.AllArgsConstructor;
 
 import java.awt.image.BufferedImage;

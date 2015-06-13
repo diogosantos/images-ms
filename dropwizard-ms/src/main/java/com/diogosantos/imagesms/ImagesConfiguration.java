@@ -1,7 +1,5 @@
 package com.diogosantos.imagesms;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import core.data.S3Storage;

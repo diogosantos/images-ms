@@ -1,11 +1,11 @@
 package com.diogosantos.imagesms;
 
+import com.diogosantos.imagesms.resource.ImagesResource;
 import core.ImageHandler;
+import core.ImageService;
 import core.data.FileDirectoryStrategy;
 import core.data.S3Storage;
 import core.model.ImageRepository;
-import core.ImageService;
-import com.diogosantos.imagesms.resource.ImagesResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Environment;
 
