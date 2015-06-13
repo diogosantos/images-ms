@@ -1,21 +1,11 @@
 package com.diogosantos.core;
 
-import com.amazonaws.AmazonClientException;
-import com.amazonaws.AmazonServiceException;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.auth.profile.ProfileCredentialsProvider;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.S3Object;
 import com.diogosantos.core.data.S3Storage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ImageRepository {
 
@@ -23,18 +13,24 @@ public class ImageRepository {
 
     private FileDirectoryStrategy directoryStrategy = new FileDirectoryStrategy();
 
-    public void add(Image requested) {
-
+    public void add(Image image) throws IOException {
+        String imagePath = directoryStrategy.getPath(image.getSize(), image.getFilename());
+        storage.add(image.getBuffered(), imagePath);
     }
 
-    public boolean contains(ImageRequest imageRequest) {
-        String imagePath = directoryStrategy.getPath(imageRequest.getSize(), imageRequest.getFilename());
+    public boolean contains(ImageMetadata imageMetadata) {
+        String imagePath = directoryStrategy.getPath(imageMetadata.getSize(), imageMetadata.getFilename());
         return storage.contains(imagePath);
     }
 
-    public Image getImage(ImageRequest imageRequest) throws IOException {
-        String imagePath = directoryStrategy.getPath(imageRequest.getSize(), imageRequest.getFilename());
-        return storage.getImage(imagePath);
+    public Image getImage(ImageMetadata imageMetadata) throws IOException {
+        String imagePath = directoryStrategy.getPath(imageMetadata.getSize(), imageMetadata.getFilename());
+        BufferedImage bufferedImage = storage.getImage(imagePath);
+
+        return Image.builder()
+                .buffered(bufferedImage)
+                .imageMetadata(imageMetadata)
+                .build();
     }
 
 

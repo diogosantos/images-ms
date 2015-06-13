@@ -8,7 +8,7 @@ import lombok.Getter;
  */
 @Builder
 @Getter
-public class ImageRequest {
+public class ImageMetadata {
 
     private NamedSize size;
 
@@ -16,5 +16,13 @@ public class ImageRequest {
 
     public String getFileType() {
         return "png";
+    }
+
+    public int getHeight() {
+        return size.getHeight();
+    }
+
+    public int getWidth() {
+        return size.getWidth();
     }
 }

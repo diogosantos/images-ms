@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum NamedSize {
 
-    THUMBNAIL(50, 50, 80, ScaleType.CROP, null, ImageType.PNG),
+    THUMBNAIL(150, 150, 80, ScaleType.CROP, null, ImageType.PNG),
     ORIGINAL(0, 0, 0, ScaleType.CROP, null, ImageType.JPG);
 
     private int height;

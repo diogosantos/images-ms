@@ -1,7 +1,7 @@
 package com.diogosantos.imagesms.resource;
 
 import com.diogosantos.core.Image;
-import com.diogosantos.core.ImageRequest;
+import com.diogosantos.core.ImageMetadata;
 import com.diogosantos.core.ImageService;
 import com.diogosantos.core.NamedSize;
 import lombok.AllArgsConstructor;
@@ -26,8 +26,8 @@ public class ImagesResource {
                                     @QueryParam("reference") String filename) throws IOException {
 
         final NamedSize namedSize = NamedSize.getValue(size);
-        final ImageRequest imageRequest = ImageRequest.builder().size(namedSize).filename(filename).build();
-        final Image image = imageService.getImage(imageRequest);
+        final ImageMetadata imageMetadata = ImageMetadata.builder().size(namedSize).filename(filename).build();
+        final Image image = imageService.getImage(imageMetadata);
 
         return getStreamingOutput(image);
     }

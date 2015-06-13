@@ -2,11 +2,7 @@ package com.diogosantos.core;
 
 import lombok.AllArgsConstructor;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 @AllArgsConstructor
 public class ImageService {
@@ -15,24 +11,24 @@ public class ImageService {
 
     private ImageHandler handler;
 
-    public Image getImage(ImageRequest imageRequest) throws IOException {
+    public Image getImage(ImageMetadata imageMetadata) throws IOException {
 
-        if (repository.contains(imageRequest)) {
-            return repository.getImage(imageRequest);
+        if (repository.contains(imageMetadata)) {
+            return repository.getImage(imageMetadata);
         }
 
-        return getResizedImage(imageRequest);
+        return getResizedImage(imageMetadata);
     }
 
-    private Image getResizedImage(ImageRequest imageRequest) throws IOException {
+    private Image getResizedImage(ImageMetadata imageMetadata) throws IOException {
 
-        ImageRequest originalImageRequest = ImageRequest.builder()
-                .filename(imageRequest.getFilename())
+        ImageMetadata originalImageMetadata = ImageMetadata.builder()
+                .filename(imageMetadata.getFilename())
                 .size(NamedSize.ORIGINAL)
                 .build();
-        Image original = repository.getImage(originalImageRequest);
+        Image original = repository.getImage(originalImageMetadata);
 
-        Image requested = handler.resize(imageRequest.getSize(), original);
+        Image requested = handler.resize(imageMetadata, original);
 
         repository.add(requested);
 
